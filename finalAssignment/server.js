@@ -5,7 +5,7 @@ const objectId = require('mongodb').ObjectID;
 const assert = require('assert');
 
 const dbname = 'test';
-const mongoUrl = `mongodb+srv://kitkit2431:kitkit1468@cluster0.tmvgs.mongodb.net/${dbname}?retryWrites=true&w=majority`;
+const mongoUrl = ``;
 
 //#endregion
 
