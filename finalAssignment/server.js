@@ -119,7 +119,8 @@ const deleteRestaurantDocument = (criteria,acc,cb) =>{
                 let gra = {};
                 gra["grading"] = {};
                 gra["grading"]["_id"] = objectId(criteria._id);
-                pullUserRate(acc,gra,(err)=>{
+                let c = {"grading":{$elemMatch:{"_id" : objectId(criteria._id)}}};
+                pullUserRate(c,gra,(err)=>{
                     db.collection('restaurants').deleteMany(criteria,(err,results)=>{
                         db.collection('restaurant_user').updateOne(acc,{$pull:res},(err,r)=>{
                             client.close();
@@ -356,7 +357,7 @@ const pullUserRate = (criteria,doc,cb) =>{
     client.connect((err) => {
         assert.equal(err,null);
         const db = client.db(dbname);
-        db.collection('restaurant_user').updateOne(criteria,{$pull:doc},(err,r)=>{
+        db.collection('restaurant_user').updateMany(criteria,{$pull:doc},(err,r)=>{
             client.close();
             assert.equal(err,null);
             cb(r);
