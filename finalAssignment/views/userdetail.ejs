@@ -1,0 +1,51 @@
+<html>
+    <head>    
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
+        <script>
+            function alertFunction(){
+                //if(document.referrer != null && document.referrer != ""){
+                if(<%=value.c%> == 1){
+                    alert("Create successful");
+                }
+                if(<%=value.c%> == 0){
+                    alert("Error occur in creation of restaurant document");
+                } 
+                if(<%=value.d%> == 1){
+                    alert("Delete successful");
+                }
+                //}
+            }
+        </script>
+    </head>
+    <title>User Detail</title>
+    <body onload="alertFunction()">
+        <div>
+            User name : <%=account.username%> </br>
+            Name : <%=account.name%> </br>
+            Created restaurant: </br>
+            Count <%=account.restaurants.length%> </br>
+            <% if(account.restaurants.length > 0){%>
+                <% for (var r of account.restaurants){%>
+                    <%= r.restaurant_id %></a>
+                    <%= r.name %></a>
+                    <a href="/detail?_id=<%= r._id %>">Detail</a></br>
+                <%}%>
+            <%}else{%>
+                You have not created any restaurant documents</br>
+            <%}%>
+            <a href="/create">Create restaurant record</a></br></br>
+            <% if(account.grading.length > 0){%>
+                <% for (var r of account.grading){%>
+                    <%= r.restaurant_id %></a>
+                    <%= r.name %></a>
+                    <%= r.score %></a>
+                    <a href="/detail?_id=<%= r._id %>">Detail</a></br>
+                <%}%>
+            <%}else{%>
+                You have not rated any restaurant documents</br>
+            <%}%>
+            <input type ="button" onclick="history.back()" value="Back"></input>
+            <input type = "button" onclick="window.location.href='/'" value = "Back to main"></input>
+        </div>
+    </body>
+</html>

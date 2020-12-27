@@ -1,0 +1,42 @@
+<html>
+    <head>    
+        <link rel="stylesheet" href="/css/indexStyle.css"/>
+    </head>
+    <title>Create page</title>
+    <body>
+        <div>
+            <form action="/insert" method="POST" enctype="multipart/form-data">
+                restaurant_id:<input type="text" name="restaurantId" required value="123"><br>
+                name:<input type="text" name="name" value="123"required><br>
+                borough:<input type="text" name="borough"><br>
+                cuisine:<input type="text" name="cuisine"><br>
+                address:<br>
+                street:<input type="text" name="street"><br>
+                building:<input type = "text" name = "building"><br>
+                zipcode:<input type = "text" name = "zipcode"><br>
+                coord:<br>
+                longitude:<input type = "text" name = "lon"></a>latitude:<input type = "text" name = "lat"><br>
+                <input type="file" name="photoUpload"><br>
+                <input type="submit" value="Submit">
+            </form>
+            
+        </div>
+        <input type ="button" onclick="history.back()" value="Back"></input>
+        <!--
+        1.  restaurant_id
+        ii. name
+        iii. borough
+        iv. cuisine
+        v. photo
+        vi. photo mimetype
+        vii. address
+        1. street
+        2. building
+        3. zipcode
+        4. coord
+        viii. grades
+        1. user
+        2. score
+        ix. owner-->
+    </body>
+</html>

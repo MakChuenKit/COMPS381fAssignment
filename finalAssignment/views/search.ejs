@@ -1,0 +1,25 @@
+<html>
+    <head>
+        <link rel="stylesheet" href="/css/searchStyle.css">
+    </head>
+    <title>Search page</title>
+    <body>
+        <% for(var r of restaurants){ %>
+            <div class="searchItemBox">
+                <%= r.restaurant_id %></a>
+                <%= r.name %></a>
+                <a href="/detail?_id=<%= r._id %>" class="detailBotton">Detail</a>
+            </div>
+        <% } %>
+        <!--<ul>
+            <% for (var r of restaurants) { %>
+            <li><%= r.restaurant_id %></a></li>
+            <li><%= r.name %></a></li>
+            <li><%= r.borough %></a></li>
+            <li><%= r.cuisine %></a></li>
+            <br>
+            <% } %>
+        </ul>-->
+        <input type = "button" onclick="window.location.href='/'" value = "Back to main"></input>
+    </body>
+</html>

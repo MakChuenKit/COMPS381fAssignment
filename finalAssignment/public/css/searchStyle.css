@@ -1,0 +1,14 @@
+.searchItemBox{
+    border-left-style:double;
+    border-right-style:double;
+    border-top-style: dashed;
+    border-bottom-style : dashed;
+    border-width:1px 5px 1px 5px;
+    border-radius:5px;
+    margin-bottom: 5px;
+  }
+
+.detailBotton{
+  position: absolute;
+  right: 20px;
+}

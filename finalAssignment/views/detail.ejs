@@ -1,0 +1,117 @@
+<html>
+    <head>    
+        <link rel="stylesheet" href="https://unpkg.com/leaflet@1.5.1/dist/leaflet.css"
+            integrity="sha512-xwE/Az9zrjBIphAcBb3F6JVqxf46+CDLwfLMHloNu6KEQCAWi6HcDUbeOfBIptF7tcCzusKFjFw2yuvEpDL9wQ=="
+            crossorigin=""/>
+      <!-- Make sure you put this AFTER Leaflet's CSS -->
+        <script src="https://unpkg.com/leaflet@1.5.1/dist/leaflet.js"
+        integrity="sha512-GffPMF3RvMeYyc1LWMHtK8EbPv0iNZ8/oTtHPx9/cc2ILxQ+u905qIwdpULaqDkyBKgOaB57QTMg7ztg8Jm2Og=="
+        crossorigin=""></script>
+        <script>
+            function deleteConfirmFunction(){
+                var f = document.getElementById("_idForm");
+                if(confirm("Do you want to delete this record?")){
+                    f.action = "/delete";
+                    f.method = "POST";
+                    f.submit();
+                } else {
+                    
+                }
+            }
+            function editFunction(){
+                var f = document.getElementById("_idForm");
+                f.action = "/edit";
+                f.method = "GET";
+                f.submit();
+            }
+        </script>
+    </head>
+    <title>Detail page</title>
+    <body>
+        <form type="hidden" name="_idForm" id="_idForm">
+            <input type="hidden" name="_id" value=<%=restaurant._id %>>
+            <input type="hidden" name="owner" value=<%=restaurant.owner %>>
+        </form>
+        <% if(restaurant.photo){%>
+            <img src="data:image/jpg;base64, <%= restaurant.photo %>"><br>
+        <% } %>
+        <%= restaurant.restaurant_id %></a><br>
+        <%= restaurant.name %></a><br>
+        <%= restaurant.ownername %></a><br>
+        <%= restaurant.borough%></a><br>
+        <%= restaurant.cuisine%></a><br>
+        <%=restaurant.address.street%><br>
+        <%=restaurant.address.building%><br>
+        <%=restaurant.address.zipcode%><br>
+        <% if(restaurant.address.coord != null && restaurant.address.coord.length != 0){%>
+        <div id = "map" style = "width: 900px; height: 580px"></div>
+            <script>
+                // Creating map options
+                var mapOptions = {
+                   center: [<%=restaurant.address.coord[1]%>,<%=restaurant.address.coord[0]%>],
+                   zoom: 15
+                }
+                
+                // Creating a map object
+                var map = new L.map('map', mapOptions);
+                
+                // Creating a Layer object
+                var layer = new L.TileLayer('http://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png');
+                
+                // Adding layer to the map
+                map.addLayer(layer);
+                // Creating a marker
+                var marker = L.marker([<%=restaurant.address.coord[1]%>,<%=restaurant.address.coord[0]%>]);
+                // Adding marker to the map
+                marker.addTo(map);
+            </script>
+        <%}%>
+        <br>
+        <% if(restaurant.grades.length > 0){%>
+            <% for(var g of restaurant.grades){ %>
+                <div>
+                    <%= g.date %></a>
+                    <%= g.name %></a>
+                    <%= g.score %></a>
+                </div><br>
+            <% } %>
+        <% } %>
+
+        <%if(userid == restaurant.owner && userid != null){%>
+                <button type="button" onclick="editFunction()">Edit</button>
+                <button type="button" onclick="deleteConfirmFunction()">Delete</button>
+        <%}%>
+        <%if(userid != null){%>
+            <div>
+                <form action="/rate" method="POST">
+                    <input type="hidden" name="_id" value=<%=restaurant._id %>>
+                    <input type="hidden" name="name" value=<%=restaurant.name %>>
+                    Rating : <input type="number"  name="rate" max="10" min="1" value="1">
+                    <button type="submit">Rate</button>
+                </form>
+            </div><br>
+        <%} else {%>
+            ~Login to rate the restaurant~
+        <%}%>
+        </br></br>
+        <input type ="button" onclick="history.back()" value="Back"></input>
+        <input type = "button" onclick="window.location.href='/'" value = "Back to main"></input>
+        
+        <!--
+        1.  restaurant_id
+        ii. name
+        iii. borough
+        iv. cuisine
+        v. photo
+        vi. photo mimetype
+        vii. address
+        1. street
+        2. building
+        3. zipcode
+        4. coord
+        viii. grades
+        1. user
+        2. score
+        ix. owner-->
+    </body>
+</html>

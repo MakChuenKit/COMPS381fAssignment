@@ -1,0 +1,28 @@
+<html>
+    <head>    
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
+        <script>
+            function alertFunction(){
+                var v = <%=state%>;
+                    if(v == 0){
+                        alert("The user name has been taken!");
+                    }
+                    if(v == 1){
+                        alert("Register successful");
+                    }
+            }
+        </script>
+    </head>
+    <title>Sign Up page</title>
+    <body onload="alertFunction()">
+        <div>
+            <form action="/signup" method="POST"> 
+                User Name : <input type="text" name="username" required>
+                User Password : <input type="text" name="password">
+                Name : <input type="text" name="name" required>
+                <button type="submit">Submit</button>
+            </form>
+        </div>
+        <input type ="button" onclick="history.back()" value="Back"></input>
+    </body>
+</html>

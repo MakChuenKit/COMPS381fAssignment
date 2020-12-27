@@ -1,0 +1,64 @@
+<html>
+    <head>    
+        <link rel="stylesheet" href="/css/indexStyle.css"/>
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
+        <script>
+            console.info(performance.navigation.type);
+            if (performance.navigation.type == performance.navigation.TYPE_RELOAD) {
+                window.history.replaceState({}, document.title, "/");
+            }
+            function alertFunction(){
+                //if(document.referrer != null && document.referrer != ""){
+                if(<%=value.login%> == 1){
+                    alert("Login successful");
+                }
+                if(<%=value.login%> == 0){
+                    alert("Login unsuccessful, please check using correct username and password");
+                }
+                if(<%=value.state%> == 1){
+                    alert("Sign up successful, please login to continue the usage");
+                }
+                //}
+            }
+        </script>
+    </head>
+    <title>Index page</title>
+    <body onload="alertFunction()">
+        <div class="userbar">
+            <% if(value.userid){%>
+                <div class="userbarcontent">
+                    Welcome <a href="/userdetail" class="userIdBox"><img src="/photo/Sample_User_Icon.png"><%=value.username%></a>
+                    <div class="usercontent">
+                        <a href="/create">Create a restaurant</a> </br>
+                        <a href="/logout">Logout</a>
+                    </div>
+
+                </div>
+                
+            <% } else {%>
+                <div>
+                    <form action="/login" method="POST" class="userbarcontent">
+                        Username : <input type="text" name="username" required>
+                        Password : <input type="password" name="password">
+                        <button type="submit">Sign in</button>
+                        <input type = "button" onclick="window.location.href='/signuppage'" value = "Sign up"></input>
+                    </form>
+                </div>
+            <% }%>
+        </div>
+
+        <div class="searchform">
+            <form action="/search" method="GET">
+                <input type="text" name="search" placeholder="Search for any similar results" class="valueInput" required>
+                <select name="type">
+                    <option value="nan">Search Similar</option>
+                    <option value="name">Search Name</option>
+                    <option value="borough">Search Borough</option>
+                    <option value="cuisine">Search Cuisine</option>
+                </select>
+
+                <div class="searchButton"><button type="submit">Search</button></div>
+            </form>
+        </div>
+    </body>
+</html>
