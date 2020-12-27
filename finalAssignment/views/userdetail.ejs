@@ -1,5 +1,6 @@
 <html>
     <head>    
+        <link rel="stylesheet" href="/css/userdetailStyle.css"/>
         <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
         <script>
             function alertFunction(){
@@ -22,28 +23,46 @@
         <div>
             User name : <%=account.username%> </br>
             Name : <%=account.name%> </br>
-            Created restaurant: </br>
-            Count <%=account.restaurants.length%> </br>
-            <% if(account.restaurants.length > 0){%>
-                <% for (var r of account.restaurants){%>
-                    <%= r.restaurant_id %></a>
-                    <%= r.name %></a>
-                    <a href="/detail?_id=<%= r._id %>">Detail</a></br>
+            <div style="display: inline-block; width: 50%;">Created restaurant</div>
+            <div style="display: inline-block; ">Restaurants Count : <%=account.restaurants.length%></div>
+            <div class="restaurantArea">
+                <% if(account.restaurants.length > 0){%>
+                    <% for (var r of account.restaurants){%>
+                        <div class="restaruantItem">
+                        <%= r.restaurant_id %></a>
+                        <%= r.name %></a>
+                        <a href="/detail?_id=<%= r._id %>" class="detailBotton">Detail</a></br>
+                        </div>
+                    <%}%>
+                <%}else{%>
+                    You have not created any restaurant documents</br>
                 <%}%>
-            <%}else{%>
-                You have not created any restaurant documents</br>
-            <%}%>
+            </div>
             <a href="/create">Create restaurant record</a></br></br>
+            <div>Rating : </div>
+            <div class="restaurantArea">
             <% if(account.grading.length > 0){%>
                 <% for (var r of account.grading){%>
-                    <%= r.restaurant_id %></a>
-                    <%= r.name %></a>
-                    <%= r.score %></a>
-                    <a href="/detail?_id=<%= r._id %>">Detail</a></br>
+                    <div class="restaruantItem">
+                        <table style="width: 100%; text-align: left; table-layout: fixed;">
+                            <tr>
+                                <th>
+                                    Restaurant Name : <%= r.name %>
+                                </th>
+                                <th>
+                                    Given score : <%= r.score %>
+                                </th>
+                                <th>
+                                    <a href="/detail?_id=<%= r._id %>" class="detailBotton">Detail</a></br>
+                                </th>
+                            </tr>
+                        </table>
+                    </div>
                 <%}%>
             <%}else{%>
                 You have not rated any restaurant documents</br>
             <%}%>
+            </div><br>
             <input type ="button" onclick="history.back()" value="Back"></input>
             <input type = "button" onclick="window.location.href='/'" value = "Back to main"></input>
         </div>

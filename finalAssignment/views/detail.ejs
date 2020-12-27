@@ -1,12 +1,5 @@
 <html>
     <head>    
-        <link rel="stylesheet" href="https://unpkg.com/leaflet@1.5.1/dist/leaflet.css"
-            integrity="sha512-xwE/Az9zrjBIphAcBb3F6JVqxf46+CDLwfLMHloNu6KEQCAWi6HcDUbeOfBIptF7tcCzusKFjFw2yuvEpDL9wQ=="
-            crossorigin=""/>
-      <!-- Make sure you put this AFTER Leaflet's CSS -->
-        <script src="https://unpkg.com/leaflet@1.5.1/dist/leaflet.js"
-        integrity="sha512-GffPMF3RvMeYyc1LWMHtK8EbPv0iNZ8/oTtHPx9/cc2ILxQ+u905qIwdpULaqDkyBKgOaB57QTMg7ztg8Jm2Og=="
-        crossorigin=""></script>
         <script>
             function deleteConfirmFunction(){
                 var f = document.getElementById("_idForm");
@@ -25,6 +18,7 @@
                 f.submit();
             }
         </script>
+        <link rel="stylesheet" href="/css/detailStyle.css"/>
     </head>
     <title>Detail page</title>
     <body>
@@ -33,60 +27,80 @@
             <input type="hidden" name="owner" value=<%=restaurant.owner %>>
         </form>
         <% if(restaurant.photo){%>
-            <img src="data:image/jpg;base64, <%= restaurant.photo %>"><br>
-        <% } %>
-        <%= restaurant.restaurant_id %></a><br>
-        <%= restaurant.name %></a><br>
-        <%= restaurant.ownername %></a><br>
-        <%= restaurant.borough%></a><br>
-        <%= restaurant.cuisine%></a><br>
-        <%=restaurant.address.street%><br>
-        <%=restaurant.address.building%><br>
-        <%=restaurant.address.zipcode%><br>
-        <% if(restaurant.address.coord != null && restaurant.address.coord.length != 0){%>
-        <div id = "map" style = "width: 900px; height: 580px"></div>
-            <script>
-                // Creating map options
-                var mapOptions = {
-                   center: [<%=restaurant.address.coord[1]%>,<%=restaurant.address.coord[0]%>],
-                   zoom: 15
-                }
-                
-                // Creating a map object
-                var map = new L.map('map', mapOptions);
-                
-                // Creating a Layer object
-                var layer = new L.TileLayer('http://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png');
-                
-                // Adding layer to the map
-                map.addLayer(layer);
-                // Creating a marker
-                var marker = L.marker([<%=restaurant.address.coord[1]%>,<%=restaurant.address.coord[0]%>]);
-                // Adding marker to the map
-                marker.addTo(map);
-            </script>
-        <%}%>
-        <br>
-        <% if(restaurant.grades.length > 0){%>
-            <% for(var g of restaurant.grades){ %>
-                <div>
-                    <%= g.date %></a>
-                    <%= g.name %></a>
-                    <%= g.score %></a>
-                </div><br>
-            <% } %>
+            <img src="data:image/jpg;base64, <%= restaurant.photo %>" class="photobox"><br>
         <% } %>
 
-        <%if(userid == restaurant.owner && userid != null){%>
-                <button type="button" onclick="editFunction()">Edit</button>
-                <button type="button" onclick="deleteConfirmFunction()">Delete</button>
-        <%}%>
+        <table class="detailtable">
+            <tr>
+                <th> Restaurant ID: </th>
+                <th><%= restaurant.restaurant_id %></th>
+            </tr>
+            <tr>
+                <th> Restaurant Name: </th>
+                <th><%= restaurant.name %></th>
+            </tr>
+            <tr>
+                <th> Restaurant Owner: </th>
+                <th><%= restaurant.ownername %></th>
+            </tr>
+            <tr>
+                <th> Borough: </th>
+                <th><%if(restaurant.borough){%><%= restaurant.borough%><%} else {%>NaN<%}%></th>
+            </tr>
+            <tr>
+                <th> Cuisine: </th>
+                <th><%if(restaurant.cuisine){%><%= restaurant.cuisine%><%} else {%>NaN<%}%></th>
+            </tr>
+        </table>
+        <table class="detailtable">
+            <tr>
+                <th> Address </th>
+            </tr>
+            <tr>
+                <th> Street: </th>
+                <th> <%if(restaurant.address.street){%><%=restaurant.address.street%><%} else {%>NaN<%}%> </th>
+            </tr>
+            <tr>
+                <th> Building: </th>
+                <th> <%if(restaurant.address.building){%><%=restaurant.address.building%><%} else {%>NaN<%}%> </th>
+            </tr>
+            <tr>
+                <th> Zipcode: </th>
+                <th> <%if(restaurant.address.zipcode){%><%=restaurant.address.zipcode%><%} else {%>NaN<%}%> </th>
+            </tr>
+            <tr>
+                <th>  </th>
+                <th> <% if(restaurant.address.coord[0] && restaurant.address.coord[1]){%>
+                    <a href="/coord?lat=<%=restaurant.address.coord[0]%>&lon=<%=restaurant.address.coord[1]%>">Look the coordinate</a><br>
+                <%} else {%>
+                    No coordinate available </br>
+                <% }%> </th>
+            </tr>
+        </table>
+        
+        <br>
+        ~User Rating~
+        <br><br>
+        <div class="rateBox">
+        <% if(restaurant.grades.length > 0){%>
+            <% var i = 1%>
+            <% for(var g of restaurant.grades){ %>
+                <div class="scorebox">
+                    <%= i%>.
+                    <%= g.name %></a>
+                    <%= g.score %></a>
+                    <%i++%>
+                </div><br>
+            <% } %>
+        <% } else { %><div class="centerSpan">~No user rating~</div><%}%>
+        </div>
+        </br>
         <%if(userid != null){%>
             <div>
                 <form action="/rate" method="POST">
                     <input type="hidden" name="_id" value=<%=restaurant._id %>>
                     <input type="hidden" name="name" value=<%=restaurant.name %>>
-                    Rating : <input type="number"  name="rate" max="10" min="1" value="1">
+                    Rating : <input type="number"  name="rate" max="10" min="1" value="1" required>
                     <button type="submit">Rate</button>
                 </form>
             </div><br>
@@ -94,6 +108,10 @@
             ~Login to rate the restaurant~
         <%}%>
         </br></br>
+        <%if(userid == restaurant.owner && userid != null){%>
+            <button type="button" onclick="editFunction()">Edit</button>
+            <button type="button" onclick="deleteConfirmFunction()">Delete</button>
+        <%}%>
         <input type ="button" onclick="history.back()" value="Back"></input>
         <input type = "button" onclick="window.location.href='/'" value = "Back to main"></input>
         

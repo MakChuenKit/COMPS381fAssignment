@@ -6,16 +6,17 @@
     <body>
         <div>
             <form action="/insert" method="POST" enctype="multipart/form-data">
-                restaurant_id:<input type="text" name="restaurantId" required value="123"><br>
-                name:<input type="text" name="name" value="123"required><br>
+                restaurant_id:<input pattern= "[0-9]+" type="text" name="restaurantId" required maxlength="8" size="8"><br>
+                name:<input type="text" name="name" required><br>
                 borough:<input type="text" name="borough"><br>
                 cuisine:<input type="text" name="cuisine"><br>
                 address:<br>
                 street:<input type="text" name="street"><br>
                 building:<input type = "text" name = "building"><br>
-                zipcode:<input type = "text" name = "zipcode"><br>
+                zipcode:<input type = "text" pattern= "[0-9]+" name = "zipcode" maxlength="10" size="10"><br>
                 coord:<br>
-                longitude:<input type = "text" name = "lon"></a>latitude:<input type = "text" name = "lat"><br>
+                latitude:<input type = "text" name = "lat" pattern= "[0-9.-]+">
+                longitude:<input type = "text" name = "lon" pattern= "[0-9.-]+"></a><br>
                 <input type="file" name="photoUpload"><br>
                 <input type="submit" value="Submit">
             </form>

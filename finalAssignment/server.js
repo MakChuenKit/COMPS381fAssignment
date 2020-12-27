@@ -232,7 +232,6 @@ const handle_Update = (res,updates) =>{
     var doc = {};
     var address = {};
     //console.log(id);
-    doc["restaurant_id"] = updates.fields.restaurantId;
     doc["name"] = updates.fields.name;
     doc["borough"] = updates.fields.borough;
     doc["cuisine"] = updates.fields.cuisine;
@@ -461,6 +460,10 @@ app.get('/edit',(req,res)=>{
     } else {
         res.status(502).redirect('/*');
     }
+});
+
+app.get('/coord',(req,res)=>{
+    res.status(200).render('coord',{"lat":req.query.lat,"lon":req.query.lon});
 });
 
 //#endregion

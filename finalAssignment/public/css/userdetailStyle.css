@@ -1,0 +1,23 @@
+.restaurantArea{
+    background-color: whitesmoke;
+    position: relative;
+    width: 1000px;
+    min-height: 500px;
+    margin-left: 100px;
+  }
+
+  .restaruantItem{
+    background-color: white;
+    margin-top: 5px;
+    margin-left: 5px;
+    margin-right: 5px;
+    margin-bottom: 0px;
+    padding: 3px;
+    width: auto;
+    height: 30px;
+  }
+
+  .detailBotton{
+    position: absolute;
+    right: 20px;
+  }

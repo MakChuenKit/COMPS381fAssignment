@@ -1,0 +1,46 @@
+.rateBox{
+    background-color: rgb(202, 209, 211);
+    width: 100%;
+    height: 200px;
+    overflow: scroll;
+    
+}
+
+.centerSpan{
+    position: relative;
+    background-color: white;
+    width: auto;
+    position: relative;
+    text-align: center;
+    height: 30px;
+    margin-top: 5px;
+    margin-left: 5px;
+    margin-right: 5px;
+}
+
+.scorebox{
+    background-color: white;
+    margin-top: 5px;
+    margin-left: 5px;
+    margin-right: 5px;
+    margin-bottom: 0px;
+    padding: 3px;
+    width: auto;
+    height: 30px;
+}
+
+.photobox{
+    display: block;
+    margin-left: auto;
+    margin-right: auto;
+    border: solid;
+    width: auto;
+    height: 50%;
+}
+
+.detailtable{
+    width:50%;
+    margin-left: auto;
+    margin-right: auto;
+    border: solid;
+}

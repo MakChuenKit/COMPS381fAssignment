@@ -1,16 +1,26 @@
 <html>
     <head>
+        <link rel="stylesheet" href="/css/indexStyle.css"/>
         <link rel="stylesheet" href="/css/searchStyle.css">
     </head>
     <title>Search page</title>
     <body>
+        
+        <div style="color: gray; text-align: right;">Search result : <%=length=restaurants.length%></div>
+        <br><br>
+        <div class="searchArea">
         <% for(var r of restaurants){ %>
             <div class="searchItemBox">
-                <%= r.restaurant_id %></a>
+                <b style="color: indigo;"><%= r.restaurant_id %></b></a>
                 <%= r.name %></a>
-                <a href="/detail?_id=<%= r._id %>" class="detailBotton">Detail</a>
+                <a href="/detail?_id=<%= r._id %>" class="detailBotton">Detail</a></br>
+                <div class="innerDetail">
+                    Borough: <%= r.borough %></br>
+                    Cuisine: <%= r.cuisine %></br>
+                </div>
             </div>
         <% } %>
+        </div>
         <!--<ul>
             <% for (var r of restaurants) { %>
             <li><%= r.restaurant_id %></a></li>
@@ -20,6 +30,6 @@
             <br>
             <% } %>
         </ul>-->
-        <input type = "button" onclick="window.location.href='/'" value = "Back to main"></input>
+        <input type = "button" onclick="window.location.href='/'" value = "Back to main" class="staticButton"></input>
     </body>
 </html>

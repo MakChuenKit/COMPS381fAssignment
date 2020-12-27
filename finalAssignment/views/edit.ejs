@@ -17,17 +17,16 @@
         <div>
             <form action="/update" method="POST" enctype="multipart/form-data">
                 <input type="hidden" name="_id" value="<%=restaurant._id%>">
-                restaurant_id:<input type="text" name="restaurantId" required value="<%=restaurant.restaurant_id%>"><br>
                 name:<input type="text" name="name" required value="<%=restaurant.name%>"><br>
                 borough:<input type="text" name="borough"  value="<%=restaurant.borough%>"><br>
                 cuisine:<input type="text" name="cuisine"  value="<%=restaurant.cuisine%>"><br>
                 address:<br>
                 street:<input type="text" name="street"  value="<%=restaurant.address.street%>"><br>
                 building:<input type = "text" name = "building" value="<%=restaurant.address.building%>"><br>
-                zipcode:<input type = "text" name = "zipcode"  value="<%=restaurant.address.zipcode%>"><br>
+                zipcode:<input type = "text" pattern= "[0-9]+" name = "zipcode" value="<%=restaurant.address.zipcode%>" maxlength="10" size="10"><br>
                 coord:<br>
-                longitude:<input type = "text" name = "lon"  value="<%=restaurant.address.coord[0]%>"></a>
-                latitude:<input type = "text" name = "lat" value="<%=restaurant.address.coord[1]%>"><br>
+                latitude:<input type = "text" name = "lat" pattern= "[0-9.-]+" value="<%=restaurant.address.coord[1]%>">
+                longitude:<input type = "text" name = "lon" pattern= "[0-9.-]+" value="<%=restaurant.address.coord[0]%>"></a><br>
                 <% if(restaurant.photo){%>
                     <img src="data:image/jpg;base64, <%= restaurant.photo %>"><br>
                     <input type="checkbox" name="removePhoto" onchange="handleChange(this)">remove photo</input>
